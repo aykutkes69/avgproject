@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_package = "org.example.grpc";
+
+service supplier{
+
+  rpc findAllPreferredSuppliers (Prefer) returns (stream Supplier){};
+  rpc findPreferredSupplier (Produkt) returns (Supplier){};
+  rpc setPreferredSupplierForProduct (stream SetSupplier) returns (stream SetSupplier){};
+
+}
+
+message Supplier{
+  string name = 1;
+  Produkt pro = 2;
+}
+message SupplierDatabase {
+  repeated Supplier supplier1 = 1;
+}
+
+message Prefer{
+  Produkt erstes = 1;
+  Produkt zweites = 2;
+}
+
+message Produkt{
+  string name = 1;
+  string grosse = 2;
+}
+
+message SetSupplier{
+  // welches Produkt handelt es sich
+  Produkt product = 1;
+  // die message das es klappt
+  string message = 2;
+}
